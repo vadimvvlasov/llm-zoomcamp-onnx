@@ -24,7 +24,8 @@ class Embedder:
         return self.encode_batch([text], normalize=normalize)[0]
 
     def encode_batch(self, texts, normalize=True):
-        self.tokenizer.enable_padding()
+        self.tokenizer.enable_truncation(max_length=self._max_length)
+        self.tokenizer.enable_padding(length=self._max_length)
         encoded = self.tokenizer.encode_batch(texts)
         feed = {}
         if "input_ids" in self.input_names:
