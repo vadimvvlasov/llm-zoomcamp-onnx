@@ -1,7 +1,8 @@
+import logging
 import os
 import shutil
-import logging
 from pathlib import Path
+
 from huggingface_hub import hf_hub_download, list_repo_files
 
 os.environ["HF_HUB_DISABLE_TELEMETRY"] = "1"
@@ -15,6 +16,14 @@ ONNX_CANDIDATES = [
 
 
 def download(repo, dest="models"):
+    # Strip a leading dest-prefix if the user accidentally passed a local path
+    # e.g. "models/Xenova/bge-base-en-v1.5" → "Xenova/bge-base-en-v1.5"
+    repo = (
+        str(Path(repo).relative_to(dest))
+        if str(repo).startswith(str(dest) + "/")
+        else repo
+    )
+
     dest = Path(dest) / repo
     dest.mkdir(parents=True, exist_ok=True)
 
@@ -47,4 +56,27 @@ def download(repo, dest="models"):
 
 
 if __name__ == "__main__":
-    download("Xenova/all-MiniLM-L6-v2")
+    import argparse
+
+    parser = argparse.ArgumentParser(
+        description="Download an ONNX model from Hugging Face Hub",
+        epilog=(
+            "examples:\n"
+            "  python -m src.embed.download\n"
+            "  python -m src.embed.download sentence-transformers/all-MiniLM-L6-v2\n"
+            "  python -m src.embed.download Xenova/all-MiniLM-L6-v2 --dest /tmp/models\n"
+        ),
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+    )
+    parser.add_argument(
+        "repo",
+        nargs="?",
+        default="Xenova/all-MiniLM-L6-v2",
+        help="HF repo id, e.g. Xenova/all-MiniLM-L6-v2",
+    )
+    parser.add_argument(
+        "--dest", default="models", help="Destination directory (default: models)"
+    )
+    args = parser.parse_args()
+
+    download(args.repo, args.dest)

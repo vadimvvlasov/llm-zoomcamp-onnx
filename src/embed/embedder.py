@@ -9,8 +9,11 @@ _DEFAULT_MODEL = PROJECT_ROOT / "models" / "Xenova" / "all-MiniLM-L6-v2"
 
 
 class Embedder:
-    def __init__(self, path=_DEFAULT_MODEL):
+    def __init__(self, path=_DEFAULT_MODEL, max_length: int = 512):
         path = Path(path)
+        if not path.is_absolute():
+            path = PROJECT_ROOT / path
+        self._max_length = max_length
         self.tokenizer = Tokenizer.from_file(str(path / "tokenizer.json"))
         self.session = ort.InferenceSession(
             str(path / "model.onnx"), providers=["CPUExecutionProvider"]
