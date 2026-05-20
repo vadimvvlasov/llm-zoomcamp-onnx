@@ -56,7 +56,7 @@ class DataLoader(Protocol):
 
         Returns:
             A list of FAQ_Document dicts, each containing at minimum the
-            fields ``question``, ``text``, ``section``, and ``course``.
+            fields ``question``, ``answer``, ``section``, and ``course``.
 
         Raises:
             RuntimeError: If the data source is unavailable or returns an

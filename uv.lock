@@ -339,6 +339,36 @@ wheels = [
 ]
 
 [[package]]
+name = "elastic-transport"
+version = "9.4.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "certifi" },
+    { name = "sniffio" },
+    { name = "urllib3" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/81/3f/076b7cdc93ff4c7953a76e8e64830e6ff0352cd713d338abc601f142b75f/elastic_transport-9.4.0.tar.gz", hash = "sha256:4eff263c8011dd950451b72be567a2484b814a89c70081053d6ae6addeab52e2", size = 77819, upload-time = "2026-05-05T14:40:54.136Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/49/17/8d6ee5cd6218f03b195cc017e9e8e09b3df48ebc307903d09cf9f04ff0fe/elastic_transport-9.4.0-py3-none-any.whl", hash = "sha256:2dbb907ededa14e6ff5be058f8737bbba3926bd1b1a40dbc98a471285fa2cb3c", size = 65358, upload-time = "2026-05-05T14:40:52.545Z" },
+]
+
+[[package]]
+name = "elasticsearch"
+version = "9.4.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "anyio" },
+    { name = "elastic-transport" },
+    { name = "python-dateutil" },
+    { name = "sniffio" },
+    { name = "typing-extensions" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/7d/2d/413775b172c6983c7cdbbdc3ac2be71eb00679510a536081801b387a2c8c/elasticsearch-9.4.0.tar.gz", hash = "sha256:95e38e130b1d01438b19343dfa0458e1857a7df8e2e30cbf23a72182b03f05ff", size = 907191, upload-time = "2026-05-06T11:12:51.996Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/b7/a1/193be12421e0db8e786c1592b449f9cadef240970d391bf94b7bb07ca195/elasticsearch-9.4.0-py3-none-any.whl", hash = "sha256:e20095ba40229f4562f7cc951883c7c62a017435f94dbe0c21526f58ba411885", size = 992735, upload-time = "2026-05-06T11:12:48.267Z" },
+]
+
+[[package]]
 name = "executing"
 version = "2.2.1"
 source = { registry = "https://pypi.org/simple" }
@@ -876,11 +906,13 @@ wheels = [
 [[package]]
 name = "llm-zoomcamp-onnx"
 version = "0.1.0"
-source = { virtual = "." }
+source = { editable = "." }
 dependencies = [
+    { name = "elasticsearch" },
     { name = "minsearch" },
     { name = "numpy" },
     { name = "onnxruntime" },
+    { name = "sqlitesearch" },
     { name = "tokenizers" },
     { name = "tqdm" },
 ]
@@ -893,9 +925,11 @@ dev = [
 
 [package.metadata]
 requires-dist = [
+    { name = "elasticsearch", specifier = ">=9.4.0" },
     { name = "minsearch", specifier = ">=0.0.11" },
     { name = "numpy", specifier = ">=2.4.6" },
     { name = "onnxruntime", specifier = ">=1.26.0" },
+    { name = "sqlitesearch", specifier = ">=0.0.5" },
     { name = "tokenizers", specifier = ">=0.23.1" },
     { name = "tqdm", specifier = ">=4.67.3" },
 ]
@@ -1757,12 +1791,33 @@ wheels = [
 ]
 
 [[package]]
+name = "sniffio"
+version = "1.3.1"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/a2/87/a6771e1546d97e7e041b6ae58d80074f81b7d5121207425c964ddf5cfdbd/sniffio-1.3.1.tar.gz", hash = "sha256:f4324edc670a0f49750a81b895f35c3adb843cca46f0530f79fc1babb23789dc", size = 20372, upload-time = "2024-02-25T23:20:04.057Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/e9/44/75a9c9421471a6c4805dbf2356f7c181a29c1879239abab1ea2cc8f38b40/sniffio-1.3.1-py3-none-any.whl", hash = "sha256:2f6da418d1f1e0fddd844478f41680e794e6051915791a034ff65e5f100525a2", size = 10235, upload-time = "2024-02-25T23:20:01.196Z" },
+]
+
+[[package]]
 name = "soupsieve"
 version = "2.8.3"
 source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/7b/ae/2d9c981590ed9999a0d91755b47fc74f74de286b0f5cee14c9269041e6c4/soupsieve-2.8.3.tar.gz", hash = "sha256:3267f1eeea4251fb42728b6dfb746edc9acaffc4a45b27e19450b676586e8349", size = 118627, upload-time = "2026-01-20T04:27:02.457Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/46/2c/1462b1d0a634697ae9e55b3cecdcb64788e8b7d63f54d923fcd0bb140aed/soupsieve-2.8.3-py3-none-any.whl", hash = "sha256:ed64f2ba4eebeab06cc4962affce381647455978ffc1e36bb79a545b91f45a95", size = 37016, upload-time = "2026-01-20T04:27:01.012Z" },
+]
+
+[[package]]
+name = "sqlitesearch"
+version = "0.0.5"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "numpy" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/d0/0d/15050fbc0bf5f13aa95f1222f19a61b7abe99e9b9493c4a7e4bfe08a55c2/sqlitesearch-0.0.5.tar.gz", hash = "sha256:2995584aadfb115149a2cf38131a7c4222bd924473cbec5a3d8c342bd6015a27", size = 234103, upload-time = "2026-05-18T08:05:21.485Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/6c/36/e569dfc534ddc9ac02024c7ae8eea674216c8e9b289365a4d38b53e5061b/sqlitesearch-0.0.5-py3-none-any.whl", hash = "sha256:37fc69d78efdf1738fdd9ddf8ebc2984f8a6a6ebc238fd2ace53ae2af2e98997", size = 31400, upload-time = "2026-05-18T08:05:23.432Z" },
 ]
 
 [[package]]
