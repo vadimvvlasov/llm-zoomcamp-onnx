@@ -1,3 +1,42 @@
+"""Download ONNX embedding models from Hugging Face Hub.
+
+Looks for an ONNX model file in the repository (checking several common
+locations), downloads it together with the tokenizer, and places them in
+a local directory suitable for the inference pipeline.
+
+Examples
+--------
+CLI usage::
+
+    # Download the default model (Xenova/all-MiniLM-L6-v2)
+    python -m src.embed.download
+
+    # Specify a repository
+    python -m src.embed.download sentence-transformers/all-MiniLM-L6-v2
+
+    # Custom destination directory
+    python -m src.embed.download Xenova/all-MiniLM-L6-v2 --dest /tmp/models
+
+Programmatic usage::
+
+    from src.embed.download import download
+
+    # Downloads to ./models/Xenova/all-MiniLM-L6-v2/
+    download("Xenova/all-MiniLM-L6-v2")
+
+    # Custom destination
+    download("Xenova/all-MiniLM-L6-v2", dest="/tmp/models")
+
+Output structure::
+
+    models/
+    └── Xenova/
+        └── all-MiniLM-L6-v2/
+            ├── tokenizer.json
+            ├── model.onnx
+            └── model.onnx_data   # only for sharded models
+"""
+
 import logging
 import os
 import shutil
